@@ -1,13 +1,22 @@
 import React, { useState } from "react"
 
-export default function Home() {
-  const [favoriteMovie, setFavoriteMovie] = useState("")
+export default function Home({ onSubmit, getChildData }) {
+  const [movieLength, setMovieLength] = useState("")
   const [preferredGenre, setPreferredGenre] = useState("")
+  // const [getData, setGetData] = useState({})
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log("Submitted:", { favoriteMovie, preferredGenre })
+
+    const homeSubmission = { movieLength: movieLength, preferredGenre: preferredGenre }
+    // setGetData(homeSubmission)
+    console.log("Submitted:", homeSubmission)
+    // console.log("getData: ", getData)
+    // console.log(homeSubmission)
+    getChildData(homeSubmission)
+    onSubmit()
   }
 
   return (
@@ -18,15 +27,15 @@ export default function Home() {
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <label htmlFor="favorite-movie" className="block text-gray-300">
-              Favorite Movie
+            <label htmlFor="movie-length" className="block text-gray-300">
+              Movie Length
             </label>
             <input
-              id="favorite-movie"
+              id="movie-length"
               type="text"
-              placeholder="Enter your favorite movie"
-              value={favoriteMovie}
-              onChange={(e) => setFavoriteMovie(e.target.value)}
+              placeholder="How much time do you have?"
+              value={movieLength}
+              onChange={(e) => setMovieLength(e.target.value)}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white placeholder-gray-500 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
             />

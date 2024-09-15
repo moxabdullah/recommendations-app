@@ -1,15 +1,20 @@
 import React, { useState } from "react"
 
-export default function Questionnaire() {
+export default function Questionnaire({ onSubmit, getChildData }) {
   const [favoriteMovie, setFavoriteMovie] = useState("")
   const [movieType, setMovieType] = useState("")
   const [mood, setMood] = useState("")
   const [filmPerson, setFilmPerson] = useState("")
+  // const [getData, setGetData] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Submitted:", { favoriteMovie, movieType, mood, filmPerson })
+    const questionnaireData = { favoriteMovie, movieType, mood, filmPerson }
+    // setGetData(questionnaireData)
+    console.log("Submitted:", questionnaireData)
     // Handle form submission here
+    getChildData(questionnaireData)
+    onSubmit()
   }
 
   return (
@@ -45,11 +50,10 @@ export default function Questionnaire() {
                   key={type}
                   type="button"
                   onClick={() => setMovieType(type)}
-                  className={`flex-1 py-2 rounded-md transition-all duration-300 ${
-                    movieType === type
+                  className={`flex-1 py-2 rounded-md transition-all duration-300 ${movieType === type
                       ? "bg-purple-600 text-white"
                       : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
+                    }`}
                 >
                   {type}
                 </button>
@@ -64,11 +68,10 @@ export default function Questionnaire() {
                   key={moodType}
                   type="button"
                   onClick={() => setMood(moodType)}
-                  className={`py-2 rounded-md transition-all duration-300 ${
-                    mood === moodType
+                  className={`py-2 rounded-md transition-all duration-300 ${mood === moodType
                       ? "bg-purple-600 text-white"
                       : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
+                    }`}
                 >
                   {moodType}
                 </button>
